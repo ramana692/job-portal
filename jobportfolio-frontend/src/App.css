@@ -1,0 +1,8 @@
+/* small global tweaks */
+button {
+  font-family: inherit;
+  outline: none;
+}
+input, textarea {
+  font-family: inherit;
+}

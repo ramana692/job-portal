@@ -1,0 +1,17 @@
+:root{
+  --primary: #004aad;
+  --accent: #ffcc00;
+  --muted: #f4f6f9;
+  --card: #ffffff;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: var(--muted);
+  color: #222;
+}
+main{padding-bottom:40px;}
+a{color:inherit}

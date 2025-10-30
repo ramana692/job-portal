@@ -1,0 +1,100 @@
+.jobs-container {
+  display: flex;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+}
+
+.jobs-grid {
+  flex: 1;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.with-panel .jobs-grid {
+  flex: 0.6;
+}
+
+.job-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.job-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.job-card:hover {
+  transform: scale(1.03);
+}
+
+.job-icon {
+  font-size: 40px;
+  color: #007bff;
+}
+
+.job-buttons button {
+  margin: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.side-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: #f9f9f9;
+  box-shadow: -3px 0 6px rgba(0,0,0,0.1);
+  padding: 25px;
+  transition: all 0.4s ease-in-out;
+  overflow-y: auto;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.application-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.application-form input {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.application-form button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.apply-now-btn {
+  background: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}

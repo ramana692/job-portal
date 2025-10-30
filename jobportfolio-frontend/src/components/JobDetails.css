@@ -1,0 +1,9 @@
+.job-details {
+  background: #fbfdff;
+  border-radius: 10px;
+  padding: 16px;
+  border:1px solid #eef3ff;
+  max-width:520px;
+}
+.job-details.empty{color:#666}
+.job-details h2{color:var(--primary);margin:0 0 8px}

@@ -1,0 +1,5 @@
+.resume-builder{padding:28px}
+.resume-builder h2{text-align:center;color:var(--primary);margin-bottom:14px}
+.resume-form{max-width:700px;margin:0 auto;background:white;padding:18px;border-radius:10px;border:1px solid #eef6ff}
+.resume-form input, .resume-form textarea{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:1px solid #d7dee9}
+.resume-form button{margin-top:10px;padding:10px 16px;border-radius:8px;border:none;background:var(--primary);color:white;cursor:pointer;}

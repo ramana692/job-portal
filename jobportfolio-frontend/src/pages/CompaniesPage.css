@@ -1,0 +1,65 @@
+.companies-container {
+  padding: 50px;
+  text-align: center;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.companies-container h2 {
+  font-size: 2.2rem;
+  color: #1f2937;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.company-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+}
+
+.company-logo {
+  font-size: 2.8rem;
+  color: #6366f1;
+  margin-bottom: 15px;
+}
+
+.company-card h3 {
+  color: #111827;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.company-card p {
+  color: #374151;
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.company-desc {
+  margin-top: 10px;
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  min-height: 60px;
+}
+
+@media (max-width: 768px) {
+  .companies-container {
+    padding: 30px;
+  }
+}
