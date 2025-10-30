@@ -1,6 +1,6 @@
 [build]
   base = "jobportfolio-frontend"
-  command = "npm run build"
+  command = "CI=false npm run build"
   publish = "build"
 
 [[redirects]]
@@ -10,3 +10,4 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  CI = "false"
