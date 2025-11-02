@@ -1,11 +1,8 @@
 {
-  "buildCommand": "npm --prefix jobportfolio-frontend install && npm --prefix jobportfolio-frontend run build",
-  "outputDirectory": "jobportfolio-frontend/build",
-  "installCommand": "npm --prefix jobportfolio-frontend install",
+  "buildCommand": "CI=false npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm install",
   "framework": null,
-  "env": {
-    "CI": "false"
-  },
   "rewrites": [
     {
       "source": "/(.*)",
