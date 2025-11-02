@@ -1,22 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "jobportfolio-frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/jobportfolio-frontend/build/$1"
-    }
-  ],
+  "buildCommand": "cd jobportfolio-frontend && npm install && npm run build",
+  "outputDirectory": "jobportfolio-frontend/build",
+  "installCommand": "cd jobportfolio-frontend && npm install",
   "env": {
     "REACT_APP_API_URL": "https://jobportfolio-api.onrender.com/api",
     "CI": "false"
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

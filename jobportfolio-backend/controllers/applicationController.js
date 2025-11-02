@@ -7,15 +7,25 @@ const submitApplication = async (req, res) => {
   try {
     const { jobTitle, company, applicantName, email, phone, coverLetter, resume } = req.body;
 
+    console.log('=== SUBMIT APPLICATION START ===');
     console.log('Received application data:', { jobTitle, company, applicantName, email, phone });
-    console.log('User ID:', req.user._id);
+    console.log('User:', req.user);
+    console.log('User ID:', req.user ? req.user._id : 'NO USER');
+
+    // Check if user exists
+    if (!req.user) {
+      console.log('ERROR: No user in request');
+      return res.status(401).json({ message: 'Not authorized, no user found' });
+    }
 
     // Validate input
     if (!jobTitle || !company || !applicantName || !email || !phone) {
+      console.log('ERROR: Missing required fields');
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
     // Create application
+    console.log('Creating application in database...');
     const application = await JobApplication.create({
       user: req.user._id,
       jobTitle,
@@ -27,7 +37,10 @@ const submitApplication = async (req, res) => {
       resume
     });
 
-    console.log('Application created successfully:', application._id);
+    console.log('✅ Application created successfully!');
+    console.log('Application ID:', application._id);
+    console.log('Application:', JSON.stringify(application, null, 2));
+    console.log('=== SUBMIT APPLICATION END ===');
 
     res.status(201).json({
       success: true,
@@ -35,7 +48,8 @@ const submitApplication = async (req, res) => {
       application
     });
   } catch (error) {
-    console.error('Error submitting application:', error);
+    console.error('❌ Error submitting application:', error);
+    console.error('Error stack:', error.stack);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick MongoDB Test</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+        button { padding: 15px 30px; margin: 10px; font-size: 16px; cursor: pointer; background: #4CAF50; color: white; border: none; border-radius: 5px; }
+        button:hover { background: #45a049; }
+        .output { background: #f4f4f4; padding: 15px; margin: 10px 0; border-radius: 5px; white-space: pre-wrap; font-family: monospace; font-size: 12px; }
+        .success { color: green; }
+        .error { color: red; }
+        h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Quick Application Test</h1>
+    
+    <h2>Step 1: Create Account & Login</h2>
+    <button onclick="signupAndLogin()">1. Signup & Login</button>
+    <div id="authOutput" class="output"></div>
+    
+    <h2>Step 2: Submit Application</h2>
+    <button onclick="submitApp()">2. Submit Application</button>
+    <div id="appOutput" class="output"></div>
+    
+    <h2>Step 3: Check Applications</h2>
+    <button onclick="getApps()">3. Get My Applications</button>
+    <div id="getOutput" class="output"></div>
+
+    <script>
+        const API = 'http://localhost:5000/api';
+        let token = null;
+
+        async function signupAndLogin() {
+            const output = document.getElementById('authOutput');
+            output.className = 'output';
+            output.textContent = 'Processing...';
+            
+            try {
+                // Generate unique email
+                const timestamp = Date.now();
+                const email = `testuser${timestamp}@example.com`;
+                
+                // Signup
+                output.textContent += '\n\n📝 Creating account...';
+                const signupRes = await fetch(`${API}/auth/signup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Test User',
+                        email: email,
+                        password: 'test123',
+                        phone: '1234567890'
+                    })
+                });
+                
+                const signupData = await signupRes.json();
+                
+                if (!signupRes.ok) {
+                    throw new Error(signupData.message || 'Signup failed');
+                }
+                
+                token = signupData.token;
+                output.textContent += '\n✅ Account created!';
+                output.textContent += `\n✅ Logged in! Token: ${token.substring(0, 30)}...`;
+                output.textContent += `\n\nUser Info:\n${JSON.stringify(signupData, null, 2)}`;
+                output.className = 'output success';
+                
+            } catch (error) {
+                output.textContent += `\n\n❌ ERROR: ${error.message}`;
+                output.className = 'output error';
+            }
+        }
+
+        async function submitApp() {
+            const output = document.getElementById('appOutput');
+            output.className = 'output';
+            
+            if (!token) {
+                output.textContent = '❌ Please signup & login first!';
+                output.className = 'output error';
+                return;
+            }
+            
+            try {
+                output.textContent = '📤 Submitting application...';
+                
+                const appData = {
+                    jobTitle: 'Software Developer',
+                    company: 'Tech Corp Ltd',
+                    applicantName: 'Test User',
+                    email: 'testuser@example.com',
+                    phone: '1234567890',
+                    coverLetter: 'I am very interested in this position and have 5 years of experience.',
+                    resume: 'resume.pdf'
+                };
+                
+                console.log('Sending:', appData);
+                console.log('Token:', token);
+                
+                const response = await fetch(`${API}/applications`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(appData)
+                });
+                
+                const data = await response.json();
+                console.log('Response:', data);
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Submission failed');
+                }
+                
+                output.textContent = '✅ APPLICATION SAVED TO MONGODB!\n\n';
+                output.textContent += `Application ID: ${data.application._id}\n`;
+                output.textContent += `Status: ${data.application.status}\n`;
+                output.textContent += `Applied At: ${data.application.appliedAt}\n\n`;
+                output.textContent += `Full Response:\n${JSON.stringify(data, null, 2)}`;
+                output.className = 'output success';
+                
+                alert('✅ SUCCESS! Application saved to MongoDB prohire.applications collection!');
+                
+            } catch (error) {
+                output.textContent = `❌ ERROR: ${error.message}`;
+                output.className = 'output error';
+                console.error(error);
+            }
+        }
+
+        async function getApps() {
+            const output = document.getElementById('getOutput');
+            output.className = 'output';
+            
+            if (!token) {
+                output.textContent = '❌ Please signup & login first!';
+                output.className = 'output error';
+                return;
+            }
+            
+            try {
+                output.textContent = '📥 Fetching applications...';
+                
+                const response = await fetch(`${API}/applications`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to fetch');
+                }
+                
+                output.textContent = `✅ Found ${data.count} application(s):\n\n`;
+                output.textContent += JSON.stringify(data, null, 2);
+                output.className = 'output success';
+                
+            } catch (error) {
+                output.textContent = `❌ ERROR: ${error.message}`;
+                output.className = 'output error';
+            }
+        }
+    </script>
+</body>
+</html>
