@@ -41,6 +41,8 @@ const jobApplicationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+}, {
+  collection: 'applications'  // Explicitly set collection name
 });
 
 module.exports = mongoose.model('JobApplication', jobApplicationSchema);
